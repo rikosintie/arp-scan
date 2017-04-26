@@ -3,9 +3,9 @@ Creates several arp-scan commands to help locate an unused IP address on a LAN
 
 See http://pentestmonkey.net/blog/the-science-of-safely-finding-an-unused-ip-address for more detail
 
-To execute on windows use 'python arpscan.py' 
+To execute on windows use ```python arpscan.py``` 
 
-On Linux use 'python3 arpscan.py'
+On Linux use ```python3 arpscan.py```
 
 Usage
 ```
