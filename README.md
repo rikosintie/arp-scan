@@ -1,7 +1,7 @@
 # arp-scan
 Creates several arp-scan commands to help locate an unused IP address on a LAN
 
-See http://pentestmonkey.net/blog/the-science-of-safely-finding-an-unused-ip-address for more detail
+See https://mwhubbard.blogspot.com/2017/04/using-arp-scan-to-find-free-ip-address.html for an exmaple
 
 To execute on windows use ```python arpscan.py``` 
 
