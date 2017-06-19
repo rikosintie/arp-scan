@@ -7,6 +7,13 @@ See https://mwhubbard.blogspot.com/2017/04/using-arp-scan-to-find-free-ip-addres
 
 On *nix systems use ```python3 arpscan.py``` to execute
 
+You may have to install arp-scan on your system using your package manager. 
+If your distro doesn't have arp-scan you can download it from [Roy Hill's Github](https://github.com/royhills/arp-scan)
+
+If you create a file "arpscan.txt" in the folder where you run the script it will load the 
+IP address as a default and use it where an ip address is needed. The file should have one 
+line - the ip address or netork and mask (Ex. 192.168.10.0/24) to use.
+
 Usage
 ```
 Script usage
