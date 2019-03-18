@@ -1,6 +1,9 @@
 # arp-scan
 Creates several arp-scan commands to help locate an unused IP address on a LAN or locate a device patched on a port that is configured on the wrong vlan.
 
+Based on the blog:
+[Use Arp-scan to find hidden devices in your network](https://www.blackmoreops.com/2015/12/31/use-arp-scan-to-find-hidden-devices-in-your-network/) by Blackmoreops.com
+
 # Finding an open IP address
 The commands are executed from the script and the results returned to the screen. Arp is a layer 2 protocol so the subnet you enter must be on the same vlan as the port you are connected to if you are looking for an open IP Address. The advantage to using ARP over ICMP is that devices with firewalls may not reply to ICMP but they should reply to arp. 
 
@@ -8,11 +11,11 @@ The commands are executed from the script and the results returned to the screen
 Menu item 2 is different. It is designed to arp devices that got patched back in wrong during a cutover and now don't respond to ping. To use this script, you must be connected to a port that allows tagged traffic on the vlan the device is configured for. Since this is a layer two protocol you don't need a valid IP address on your laptop.
 
 See 
-https://mwhubbard.blogspot.com/2017/04/using-arp-scan-to-find-free-ip-address.html 
+[Using arp-scan to find a free ip address](https://mwhubbard.blogspot.com/2017/04/using-arp-scan-to-find-free-ip-address.html) 
 
 and
 
-https://mwhubbard.blogspot.com/2019/02/locate-ip-devices-on-wrong-vlan.html
+[Locate ip devices on the wrong vlan](https://mwhubbard.blogspot.com/2019/02/locate-ip-devices-on-wrong-vlan.html)
 
 for detailed instructions.
 
