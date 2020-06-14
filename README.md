@@ -40,10 +40,20 @@ Script usage
 
 Input a number to select 0
 Enter an IP Address or network - use /24 style mask: [192.168.10.0/24]: 
-Enter an interface name if needed: wlp0s20f3
+Interfaces found
+0 : lo
+1 : enp60s0
+2 : wlp0s20f3
+3 : gpd0
+4 : docker0
+5 : vethc982936
+6 : vmnet1
+7 : vmnet8
+enter interface # 2
+interface selected is: wlp0s20f3
 
 
-*****************************************************************
+-----------------------------------------------------------------
 
 sudo arp-scan -I wlp0s20f3 --arpspa=127.0.0.1 192.168.10.0/24
 Interface: wlp0s20f3, datalink type: EN10MB (Ethernet)
@@ -99,19 +109,29 @@ Input a number to select 2
 Enter the vlan ID: 46
 Enter the MAC Address: 34:64:a9:03:93:f1
 Enter the IP Subnet: 10.112.100.0/24
-Enter an interface: wlp0s20f3
+Interfaces found
+0 : lo
+1 : enp60s0
+2 : wlp0s20f3
+3 : gpd0
+4 : docker0
+5 : vethc982936
+6 : vmnet1
+7 : vmnet8
+enter interface # 1
+interface selected is: enp60s0
 
 IP Subnet 10.112.100.0/24
-*****************************************************************
+-----------------------------------------------------------------
 To re-run copy/paste this line:
-sudo arp-scan -I enp2s0f1 -Q 46 --destaddr=00:90:9e:9a:b5:3d 10.112.100.0/24
+sudo arp-scan -I enp60s0 -Q 46 --destaddr=00:90:9e:9a:b5:3d 10.112.100.0/24
 
- sudo arp-scan -I enp2s0f1 -Q 46 --destaddr=00:90:9e:9a:b5:3d 10.112.100.0/24
-WARNING: Could not obtain IP address for interface enp2s0f1. Using 0.0.0.0 for
+ sudo arp-scan -I enp60s0 -Q 46 --destaddr=00:90:9e:9a:b5:3d 10.112.100.0/24
+WARNING: Could not obtain IP address for interface wlp0s20f3. Using 0.0.0.0 for
 the source address, which is probably not what you want.
-Either configure enp2s0f1 with an IP address, or manually specify the address
+Either configure enp60s0 with an IP address, or manually specify the address
 with the --arpspa option.
-Interface: enp2s0f1, datalink type: EN10MB (Ethernet)
+Interface: enp60s0, datalink type: EN10MB (Ethernet)
 Starting arp-scan 1.9 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/)
 10.112.100.1    00:90:9e:9a:b5:3d    Critical IO, LLC (802.1Q VLAN=46)
 
