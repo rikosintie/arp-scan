@@ -5,16 +5,19 @@ http://pentestmonkey.net/blog/the-science-of-safely-finding-an-unused-ip-address
 written in Python 3.6.0
 Your Python version is printed out at the beging of the script
 If you receive "File "<string>", line 1" when running look at the version information printed.
-If it shows other than 3.4 use "python nmap3.py"
+If it shows other than 3.x use "python nmap3.py"
 once you select a number you will be asked for an IP address. Network and /mask works also.
 The script will output the appropriate arp-scan command.
-subprocess.run(["sudo", "arp-scan", "-I", "eth2", "--arpspa=127.0.0.1", "10.112.39.0/24"])
+subprocess.run(["sudo", "arp-scan", "-I", "eth2",
+"--arpspa=127.0.0.1", "10.112.39.0/24"])
 '''
 
 print()
 import subprocess
 import sys
 import re
+import netifaces
+
 ver = sys.version
 pattern = re.compile('\A\d{1}.{1}\d{1}.{1}\d{1}.{1}')
 ver = re.findall(pattern,ver)
@@ -23,7 +26,7 @@ ver = ver[0]
 print('Running Python version ----> %s' %(ver))
 
 print('''
-********************************************************************************************
+---------------------------------------------------------------------
 arp-scan is a layer 2 tool. You must be connected to the LAN or vlan
 that you are scanning.
 If you run arp-scan manually you can pass vlan tags. I plan to add that
@@ -46,7 +49,7 @@ If you create a file "arpscan.txt" in the folder where you run the
 script it will load the IP address as a default and use it where an
 ip address is needed. The file should have one
 line - the ip address or netork and mask (Ex. 192.168.10.0/24) to use.
-********************************************************************************************
+---------------------------------------------------------------------
 ''')
 
 
@@ -93,6 +96,27 @@ def readip():
         print('\n[!] An Unknown Error Occured or CTRL+C was pressed')
 
 
+def ethinterface():
+    """
+    Uses the python library netifaces to enumerate a list of the interfaces
+    on the system.
+    Presents a list of interfaces and prompt the use to select one.
+    """
+    iflist = netifaces.interfaces()
+    print('Interfaces found')
+
+    for index in range(len(iflist)):
+        print (index, ':', iflist[index])
+
+    interface = input('enter interface # ')
+    interface = int(interface)
+    interface = iflist[interface]
+    #    interface = input('Enter an interface name if needed: ')
+    print('interface selected is:', interface)
+    print()
+    return interface
+
+
 print()
 print('Script usage')
 print('0 Initial arp-scan output')
@@ -114,10 +138,21 @@ scanTest = int(scanTest)
 if scanTest == 0:
     # 0 Enter the network and mask to scan Ex. 10.140.100.0/24
     IPAddress = readip()
-    interface = input('Enter an interface name if needed: ')
+    #build a list of interfaces and present to the user
+    iflist = netifaces.interfaces()
+    print('Interfaces found')
+
+    for index in range(len(iflist)):
+        print (index, ':', iflist[index])
+
+    interface = input('enter interface # ')
+    interface = int(interface)
+    interface = iflist[interface]
+    #    interface = input('Enter an interface name if needed: ')
+    print('interface selected is:',interface)
     print()
     print()
-    print('*' * 65)
+    print('-' * 65)
     print()
     if not interface:
         print('sudo arp-scan --arpspa=127.0.0.1',IPAddress)
@@ -128,7 +163,7 @@ if scanTest == 0:
         subprocess.run(['sudo', 'arp-scan',I,interface, '--arpspa=127.0.0.1',IPAddress])
     print()
     print()
-    print('*' * 65)
+    print('-' * 65)
     print()
     if not interface:
         print('sudo arp-scan --arpspa=0.0.0.0',IPAddress)
@@ -139,7 +174,7 @@ if scanTest == 0:
         subprocess.run(['sudo', 'arp-scan',I,interface, '--arpspa=0.0.0.0',IPAddress])
     print()
     print()
-    print('*' * 65)
+    print('-' * 65)
     print()
     if not interface:
         print('sudo arp-scan --arpspa=255.255.255.255', IPAddress)
@@ -151,7 +186,7 @@ if scanTest == 0:
                        '--arpspa=255.255.255.255', IPAddress])
     print()
     print()
-    print('*' * 65)
+    print('-' * 65)
     print()
     if not interface:
         print('sudo arp-scan --arpspa=1.0.0.1', IPAddress)
@@ -163,7 +198,7 @@ if scanTest == 0:
                        '--arpspa=1.0.0.1', IPAddress])
     print()
     print()
-    print('*' * 65)
+    print('-' * 65)
 
 
 elif scanTest == 1:
@@ -171,13 +206,15 @@ elif scanTest == 1:
         # 1 Enter the two IP addresses to test
         IPAddress = input('Enter the 1st IP Address ')
         IPAddress1 = input('Enter the 2nd IP Address ')
-        interface = input('Enter an interface name if needed ')
+        interface = ethinterface()
+        #interface = input('Enter an interface name if needed ')
         #  print some space
         print()
         print()
-        print('*' * 65)
+        print('-' * 65)
         #  If no interface is entered
         if not interface:
+            print('not interface')
             print('sudo arp-scan --arpspa='+IPAddress, IPAddress1)
             print('sudo arp-scan --arpspa='+IPAddress1, IPAddress)
             arp = '--arpspa=' + IPAddress
@@ -191,12 +228,12 @@ elif scanTest == 1:
             arp1 = '--arpspa=' + IPAddress1
             print('sudo arp-scan', I, interface, '--arpspa='+IPAddress, IPAddress1)
             print('sudo arp-scan', I, interface, '--arpspa='+IPAddress1, IPAddress)
-            print('*' * 65)
+            print('-' * 65)
             print()
             subprocess.run(['sudo', 'arp-scan', I, interface, arp, IPAddress1])
             subprocess.run(['sudo', 'arp-scan', I, interface, arp1, IPAddress])
         print()
-        print('*' * 65)
+        print('-' * 65)
         print()
     except:
         print('\n[!] An Unknown Error Occured or CTRL+C was pressed')
@@ -206,11 +243,12 @@ elif scanTest == 2:
     vlan_ID = input('Enter the vlan ID: ')
     dest_MAC_addr = input('Enter the MAC Address: ')
     IPAddress = input('Enter the IP Subnet: ')
-    interface = input('Enter an interface: ')
+    interface = ethinterface()
+#    interface = input('Enter an interface: ')
     #  print some space
     print()
     print(f'IP Subnet {IPAddress}')
-    print('*' * 65)
+    print('-' * 65)
     if interface:
         print(f'To re-run copy/paste this line:')
         print(f'sudo arp-scan -I {interface} -Q {vlan_ID} --destaddr={dest_MAC_addr} {IPAddress}')
@@ -222,7 +260,7 @@ elif scanTest == 2:
         subprocess.run(['sudo', 'arp-scan', '-I', interface, '-Q', vlan_ID,
                        args, IPAddress])
         print()
-        print('*' * 65)
+        print('-' * 65)
         print()
 #    except:
 #        print('\n[!] An Unknown Error Occured or CTRL+C was pressed')
