@@ -4,6 +4,16 @@ Creates several arp-scan commands to help locate an unused IP address on a LAN o
 Based on the blog:
 [Use Arp-scan to find hidden devices in your network](https://www.blackmoreops.com/2015/12/31/use-arp-scan-to-find-hidden-devices-in-your-network/) by Blackmoreops.com
 
+# Installation #
+This script uses the Python 3 netifaces library to build the list of interfaces.
+
+* git clone https://github.com/rikosintie/arp-scan.git
+* sudo apt install python3-dev
+* sudo apt install python3-pip
+* pip3 install netifaces
+* cd arp-scan 
+* python3 arp-scan.py
+
 # Finding an open IP address
 The commands are executed from the script and the results returned to the screen. Arp is a layer 2 protocol so the subnet you enter must be on the same vlan as the port you are connected to if you are looking for an open IP Address. The advantage to using ARP over ICMP is that devices with firewalls may not reply to ICMP but they should reply to arp. 
 
