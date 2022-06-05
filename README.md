@@ -1,3 +1,7 @@
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+![GitHub language count](https://img.shields.io/github/languages/count/rikosintie/nmap-python)
+![Twitter Follow](https://img.shields.io/twitter/follow/rikosintie?style=social)
+
 # arp-scan
 Creates several arp-scan commands to help locate an unused IP address on a LAN or locate a device patched on a port that is configured on the wrong vlan.
 
