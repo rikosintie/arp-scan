@@ -31,7 +31,7 @@ and
 
 [Locate ip devices on the wrong vlan](https://mwhubbard.blogspot.com/2019/02/locate-ip-devices-on-wrong-vlan.html)
 
-for detailed instructions.
+to read detailed instructions.
 
 On *nix systems use ```python3 arpscan.py``` to execute
 
@@ -45,12 +45,12 @@ IP address as a default and use it where an ip address is needed. The file shoul
 line - the ip address or netork and mask (Ex. 192.168.10.0/24) to use.
 
 Usage
-```
-Look for an open IP address.
+```powershell
+Find an open IP address.
 Script usage
 0 Initial arp-scan output
 1 Enter two unused IP addresses
-2 Scan for a lost device
+2 Scan to find a lost device
 
 Input a number to select 0
 Enter an IP Address or network - use /24 style mask: [192.168.10.0/24]: 
@@ -81,23 +81,27 @@ Starting arp-scan 1.9 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/
 23 packets received by filter, 0 packets dropped by kernel
 Ending arp-scan 1.9: 256 hosts scanned in 2.011 seconds (127.30 hosts/sec). 22 responded
 
-*****************************************************************
-Double check that the IP you chose really isn't in use
+-----------------------------------------------------------------
+```  
+Double check that the IP you chose really isn't in use  
+```powershell
 Script usage
 0 Initial arp-scan output
 1 Enter two unused IP addresses
-2 Scan for a lost device
+2 Scan to find a lost device
 
 Input a number to select 1
 Enter the 1st IP Address 192.168.10.15
 Enter the 2nd IP Address 192.168.10.16
-Enter an interface name if needed wlp0s20f3
+Enter an interface name when needed wlp0s20f3
 
-*****************************************************************
+-----------------------------------------------------------------
 sudo arp-scan -I wlp0s20f3 --arpspa=192.168.10.15 192.168.10.16
 sudo arp-scan -I wlp0s20f3 --arpspa=192.168.10.16 192.168.10.15
-*****************************************************************
+-----------------------------------------------------------------
+```
 
+```
 [sudo] password for mhubbard: 
 Interface: wlp0s20f3, datalink type: EN10MB (Ethernet)
 Starting arp-scan 1.9 with 1 hosts (http://www.nta-monitor.com/tools/arp-scan/)
@@ -111,13 +115,14 @@ Starting arp-scan 1.9 with 1 hosts (http://www.nta-monitor.com/tools/arp-scan/)
 Ending arp-scan 1.9: 1 hosts scanned in 1.440 seconds (0.69 hosts/sec). 0 responded
 
 
-*****************************************************************
-
-Look for a missing device
+-----------------------------------------------------------------  
+```  
+To find a missing device  
+```powershell
 Script usage
 0 Initial arp-scan output
 1 Enter two unused IP addresses
-2 Scan for a lost device
+2 Scan to find a lost device
 
 Input a number to select 2
 Enter the vlan ID: 46
@@ -152,7 +157,8 @@ Starting arp-scan 1.9 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/
 1 packets received by filter, 0 packets dropped by kernel
 Ending arp-scan 1.9: 256 hosts scanned in 2.556 seconds (100.16 hosts/sec). 1 responded
 
-***************************************************************** 
+----------------------------------------------------------------- 
+```
 
 You can see that arp-scan found the device by mac address and the device replied with its IP address and that the laptop didn't have an address.
-```
+
